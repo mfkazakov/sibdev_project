@@ -62,3 +62,28 @@
 }
 ```
 
+Дополнительно:
+Структуру БД можно было реализовать через связь many-to-many с дополнительными полями. 
+Пример кода:
+```Python 
+from django.db import models
+
+class Customer(models.Model):
+    username = models.CharField(max_length=255)
+
+
+class Gem(models.Model):
+    name = models.CharField(max_length=128)
+    customers = models.ManyToManyField(Customer, through='Deal')
+
+
+class Deal(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    gem = models.ForeignKey(Gem, on_delete=models.CASCADE)
+    total = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField()
+    date_time = models.DateTimeField()
+    
+```
+
+Мною было принято решение реализовать через одну таблицу Deal из-за скорости как разработки, так и работы сервиса.

@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Deal(models.Model):
+    """Сервис реализован через одну таблицу, подробнее в README"""
     customer = models.CharField(max_length=255, verbose_name='Логин покупателя')
     item = models.CharField(max_length=255, verbose_name='Наименование товара')
     total = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(1000000000000)],
