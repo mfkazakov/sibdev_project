@@ -4,7 +4,9 @@
 
 Эндпоинты:
     
-127.0.0.1:8000/api/upload/ - загрузка данных из файла
+127.0.0.1:8000/api/upload/ - загрузка данных из файла для реализации с одной таблицей
+
+127.0.0.1:8000/api/upload_v2/ - загрузка данных из файла для реализации через связанные таблицы
     
     POST: Загрузка файла
     Поля:
@@ -25,7 +27,9 @@
 
 ```
 
-127.0.0.1:8000/api/best/
+127.0.0.1:8000/api/best/ - вывод для реализации с одной таблицей
+
+127.0.0.1:8000/api/best_v2/ - вывод для реализации через связанные таблицы
 
     GET: Список из 5 клиентов потративших наибольшую сумму
 
@@ -62,28 +66,10 @@
 }
 ```
 
-Дополнительно:
-Структуру БД можно было реализовать через связь many-to-many с дополнительными полями. 
-Пример кода:
-```Python 
-from django.db import models
+ПРИМЕЧАНИЕ:
 
-class Customer(models.Model):
-    username = models.CharField(max_length=255)
+    Реализованы все из пункты задания.
 
-
-class Gem(models.Model):
-    name = models.CharField(max_length=128)
-    customers = models.ManyToManyField(Customer, through='Deal')
-
-
-class Deal(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    gem = models.ForeignKey(Gem, on_delete=models.CASCADE)
-    total = models.PositiveIntegerField()
-    quantity = models.PositiveIntegerField()
-    date_time = models.DateTimeField()
-    
-```
-
-Мною было принято решение реализовать через одну таблицу Deal из-за скорости как разработки, так и работы сервиса.
+    Также реализовано два варианта архитектуры сервиса, через одну таблицу и через связные таблицы.
+    Если критична скорость работы, то выгодней использовать первый вариант.
+    В ситуации когда планируется дальнейшая поддержка и разватие сервиса - убоднее вариант через связные таблицы.
