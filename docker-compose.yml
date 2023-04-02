@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  web:
+    build: ./
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "8000:8000"
+
+    env_file:
+      - ./.env.dev
+
+    depends_on:
+      - db
+    environment:
+      - WAIT_HOSTS=db:5432
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=10
+      - WAIT_HOST_CONNECT_TIMEOUT=10
