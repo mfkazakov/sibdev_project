@@ -2,6 +2,7 @@ from rest_framework.serializers import Serializer, FileField, ValidationError, M
 from .models import Deal, DealV2, Gem, Customer
 from rest_framework import serializers
 
+
 class UploadDealsSerializer(Serializer):
     uploaded_file = FileField()
 
