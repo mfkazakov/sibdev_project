@@ -1,6 +1,6 @@
-Для запуска сервиса на MasOS: 
+Для запуска сервиса: 
 
-    DOCKER_DEFAULT_PLATFORM=linux/amd64 docker-compose up
+    docker-compose up
 
 Эндпоинты:
     
